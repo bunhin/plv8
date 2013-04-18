@@ -389,8 +389,10 @@ plv8_execute_params(const char *sql, Handle<Array> params)
 /*
  * Since 9.0, SPI may have the parser deduce the parameter types.  In prior
  * versions, we infer the types from the input JS values.
+ * XTUPLE modification. We cannot rely on SPI to deduce parameter types for 
+ * our code, revert back to using internal plv8 code
  */
-#if PG_VERSION_NUM >= 90000
+#if 1 == 0 
 	SPIPlanPtr		plan;
 	plv8_param_state parstate = {0};
 	ParamListInfo	paramLI;
