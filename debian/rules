@@ -1,0 +1,35 @@
+#!/usr/bin/make -f
+
+SRCDIR = $(CURDIR)
+include /usr/share/postgresql-common/pgxs_debian_control.mk
+clean: debian/control
+.PHONY: debian/control
+
+build-indep:
+build build-arch: build-stamp
+build-stamp:
+	+pg_buildext build $(CURDIR) build-%v
+	markdown doc/plv8.md > doc/plv8.html
+	touch $@
+
+clean:
+	+pg_buildext clean $(CURDIR) build-%v
+	rm -rf build-?.? debian/postgresql-?.?-plv8 doc/plv8.html
+	dh $@
+
+override_dh_installdocs:
+	dh_installdocs doc/*
+
+override_dh_auto_test:
+	# noop
+
+binary-indep:
+binary binary-arch:
+	dh_prep
+	+pg_buildext install $(CURDIR) build-%v postgresql-%v-plv8
+	dh $@
+
+%:
+	dh $@
+
+.PHONY: build build-arch build-indep clean install binary binary-arch binary-indep
