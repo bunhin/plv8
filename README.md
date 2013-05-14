@@ -104,7 +104,11 @@ EXAMPLE (LIVESCRIPT)
   (1 row)
 
 building the debian package
+required packages
 
+apt-get install markdown git-buildpackage cdbs devscripts debhelper gyp postgresql-server-dev-all python-dev libv8-dev
+
+git archive --format=tar.gz -o ../plv8_1.4.0.orig.tar.gz origin
 dpkg-buildpackage -rfakeroot -D -us -uc -i -I
 
 NOTES
