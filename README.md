@@ -103,6 +103,10 @@ EXAMPLE (LIVESCRIPT)
    {"name":"Tom","age":"29"}
   (1 row)
 
+building the debian package
+
+dpkg-buildpackage -rfakeroot -D -us -uc -i -I
+
 NOTES
 -----
 plv8 is hosted at Google Project Hosting
